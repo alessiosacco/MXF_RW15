@@ -72,12 +72,12 @@ let ils = {
 
 let ils_1 = PointFromBearingAndDistance(
   ils.coord,
-  ils.bearing + 180.0 + 1.5,
+  ils.bearing + 180.0 + 0.7,
   18520,
 );
 let ils_2 = PointFromBearingAndDistance(
   ils.coord,
-  ils.bearing + 180.0 - 1.5,
+  ils.bearing + 180.0 - 0.7,
   18520,
 );
 let ils_3 = PointFromBearingAndDistance(ils.coord, ils.bearing + 180.0, 18520);
@@ -85,6 +85,7 @@ let ils_3 = PointFromBearingAndDistance(ils.coord, ils.bearing + 180.0, 18520);
 let gls = {
   lat: 32.38785272464156,
   lon: -86.37246108613908,
+  coord: [-86.37246108613908, 32.38785272464156],
   bearing: 148.0,
 };
 
@@ -120,6 +121,12 @@ const bluePointStyle = new Style({
   image: new Circle({
     radius: 8,
     fill: new Fill({color: 'rgb(0, 0, 255)'}),
+  }),
+});
+const orangePointStyle = new Style({
+  image: new Circle({
+    radius: 8,
+    fill: new Fill({color: 'rgb(255, 102, 0)'}),
   }),
 });
 const bluePolygonStyle = new Style({
@@ -193,6 +200,10 @@ geos.push({
 geos.push({
   point: new Point(ils.coord),
   style: bluePointStyle,
+});
+geos.push({
+  point: new Point(gls.coord),
+  style: orangePointStyle,
 });
 geos.push({
   point: new Polygon([[ils.coord, ils_1, ils_2, ils.coord]]),
