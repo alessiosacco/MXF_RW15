@@ -46,10 +46,22 @@ let runway_15 = {
   lat: 32.391347140073776,
   lon: -86.37309995479882,
   coord: [-86.37309995479882, 32.391347140073776],
-  bearing: 148.46,
+  bearing: 148.55,
   width: feet_to_meters(150.0),
   length: feet_to_meters(8008.0),
 };
+
+let runway_15_front = runway_15.coord;
+let runway_15_back = PointFromBearingAndDistance(
+  runway_15.coord,
+  runway_15.bearing,
+  runway_15.length,
+);
+let runway_15_extended = PointFromBearingAndDistance(
+  runway_15.coord,
+  runway_15.bearing - 180.0,
+  runway_15.length + 30000,
+);
 
 let ils = {
   lat: 32.36898330040276,
@@ -57,6 +69,18 @@ let ils = {
   coord: [-86.35692774318159, 32.36898330040276],
   bearing: 148.0,
 };
+
+let ils_1 = PointFromBearingAndDistance(
+  ils.coord,
+  ils.bearing + 180.0 + 1.5,
+  18520,
+);
+let ils_2 = PointFromBearingAndDistance(
+  ils.coord,
+  ils.bearing + 180.0 - 1.5,
+  18520,
+);
+let ils_3 = PointFromBearingAndDistance(ils.coord, ils.bearing + 180.0, 18520);
 
 let gls = {
   lat: 32.38785272464156,
@@ -74,9 +98,9 @@ const map = new Map({
   layers: [layer],
   target: 'map',
   view: new View({
-    center: [-86.35692774318159, 32.36898330040276],
-    zoom: 14,
-    rotation: ((90.0 - 148.0) / 180.0) * Math.PI,
+    center: runway_15_front,
+    zoom: 20,
+    // rotation: ((270.0 - 148.0) / 180.0) * Math.PI,
   }),
 });
 
@@ -116,18 +140,6 @@ const greenPolygonStyle = new Style({
     color: 'rgba(0, 255, 0, 0.2)',
   }),
 });
-
-let runway_15_front = runway_15.coord;
-let runway_15_back = PointFromBearingAndDistance(
-  runway_15.coord,
-  runway_15.bearing,
-  runway_15.length,
-);
-let runway_15_extended = PointFromBearingAndDistance(
-  runway_15.coord,
-  runway_15.bearing,
-  runway_15.length + 30000,
-);
 
 const geos = new Array();
 geos.push({
@@ -182,15 +194,12 @@ geos.push({
   point: new Point(ils.coord),
   style: bluePointStyle,
 });
-let ils_1 = PointFromBearingAndDistance(ils.coord, ils.bearing + 1.5, 18520);
-let ils_2 = PointFromBearingAndDistance(ils.coord, ils.bearing - 1.5, 18520);
-let ils_3 = PointFromBearingAndDistance(ils.coord, ils.bearing, 18520);
 geos.push({
   point: new Polygon([[ils.coord, ils_1, ils_2, ils.coord]]),
   style: bluePolygonStyle,
 });
 geos.push({
-  point: new LineString([runway_15_front, runway_15_extended]),
+  point: new LineString([runway_15_back, runway_15_extended]),
   style: greenPolygonStyle,
 });
 geos.push({
