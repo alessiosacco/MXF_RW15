@@ -43,12 +43,12 @@ function PointFromBearingAndDistance(coordsDeg, headingDeg, distanceM) {
 }
 
 let runway_15 = {
-  lat: 32.391347140073776,
-  lon: -86.37309995479882,
-  coord: [-86.37309995479882, 32.391347140073776],
-  bearing: 148.55,
-  width: feet_to_meters(150.0),
-  length: feet_to_meters(8008.0),
+  lat: 52.171474965289235,
+  lon: 20.94671381637454,
+  coord: [20.94671381637454, 52.171474965289235],
+  bearing: 114.52,
+  width: feet_to_meters(164.0),
+  length: feet_to_meters(9186.0),
 };
 
 let runway_15_front = runway_15.coord;
@@ -64,10 +64,10 @@ let runway_15_extended = PointFromBearingAndDistance(
 );
 
 let ils = {
-  lat: 32.36898330040276,
-  lon: -86.35692774318159,
-  coord: [-86.35692774318159, 32.36898330040276],
-  bearing: 148.0,
+  lat: 52.16061109676957,
+  lon: 20.98541658371687,
+  coord: [20.98541658371687, 52.16061109676957],
+  bearing: 114.52,
 };
 
 let ils_1 = PointFromBearingAndDistance(
@@ -83,10 +83,10 @@ let ils_2 = PointFromBearingAndDistance(
 let ils_3 = PointFromBearingAndDistance(ils.coord, ils.bearing + 180.0, 18520);
 
 let gls = {
-  lat: 32.38785272464156,
-  lon: -86.37246108613908,
-  coord: [-86.37246108613908, 32.38785272464156],
-  bearing: 148.0,
+  lat: 52.171166595071554,
+  lon: 20.951638855040073,
+  coord: [20.951638855040073, 52.171166595071554],
+  bearing: 114.0,
 };
 
 const layer = new TileLayer({
@@ -100,7 +100,7 @@ const map = new Map({
   target: 'map',
   view: new View({
     center: runway_15_front,
-    zoom: 20,
+    zoom: 15,
     // rotation: ((270.0 - 148.0) / 180.0) * Math.PI,
   }),
 });
